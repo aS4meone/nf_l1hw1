@@ -1,5 +1,5 @@
 'use client';
-import {useEffect, useState} from "react";
+import {Fragment, useEffect, useState} from "react";
 import BlogCard from "@/app/components/BlogCard";
 import Head from "next/head";
 
@@ -21,25 +21,24 @@ export default function Blog() {
     }, []);
 
     return (
-        <section className="py-12 md:py-16 lg:py-20">
-            <div className="container grid max-w-6xl grid-cols-1 gap-6 px-4 sm:grid-cols-2 md:grid-cols-3 md:gap-8
-                lg:grid-cols-4 lg:gap-10 center">
-                    {posts.map(post => (
-                        <div key={post.id} className="hidden">
-                            <Head>
-                                <meta name="title" content={post.title} />
-                                <meta name="description" content={post.description} />
-                                <meta name="author" content={post.author} />
-                            </Head>
-                        </div>
-                    ))}
-
+        <>
+            <Head>
                 {posts.map(post => (
-                    <BlogCard key={post.id} post={post}/>
+                    <Fragment key={post.id}>
+                        <meta name="title" content={post.title}/>
+                        <meta name="description" content={post.description}/>
+                        <meta name="author" content={post.author}/>
+                    </Fragment>
                 ))}
-            </div>
-        </section>
-    )
-        ;
+            </Head>
+            <section className="py-12 md:py-16 lg:py-20">
+                <div className="container grid max-w-6xl grid-cols-1 gap-6 px-4 sm:grid-cols-2 md:grid-cols-3 md:gap-8
+                    lg:grid-cols-4 lg:gap-10 center">
+                    {posts.map(post => (
+                        <BlogCard key={post.id} post={post}/>
+                    ))}
+                </div>
+            </section>
+        </>
+    );
 }
-
